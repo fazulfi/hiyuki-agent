@@ -1,0 +1,74 @@
+# Hiyuki — single-agent gateway profile (vanilla NousResearch/hermes-agent)
+
+# Zero-restriction, operator-only deployment of Hermes for a single operator.
+# Persona is loaded from $HERMES_HOME/SOUL.md (identity slot #1), not from a
+# system-prompt key in this file (decision D-152).
+
+# ---------------------------------------------------------------------------
+# Model — MarketTabrak Router (OpenAI-compatible) -> official DeepSeek API.
+# Backend is deepseek-v4-flash, exposed by the router under the literal model
+# name "hermes". Reasoning is ON (decision D-36).
+# ---------------------------------------------------------------------------
+model:
+  provider: markettabrak
+  base_url: http://127.0.0.1:20228/v1
+  model: hermes
+  context_length: 1000000
+  max_tokens: 128000
+  temperature: 1.0
+  reasoning: true
+  # Secret referenced via environment, sourced from .env.sops. Never inline.
+  api_key: ${HIYUKI_MARKETTABRAK_API_KEY}
+
+# ---------------------------------------------------------------------------
+# Agent — single peer. No command_allowlist, no denylist, no tool_policy.
+# max_iterations is intentionally high; approvals are fully off (zero approval).
+# ---------------------------------------------------------------------------
+agent:
+  name: Hiyuki
+  max_iterations: 500
+  destructive_slash_confirm: false
+  approvals:
+    mode: false
+
+# ---------------------------------------------------------------------------
+# Discord — natural language only. There are NO slash commands.
+# Operator-only surface: messages are accepted from the allowlist below.
+# The 11 channels are hardcoded here (decision D-89):
+#   #play         1527072435390910617
+#   hiyuki-1      (channel ID via env: ${CHANNEL_HIYUKI_1})
+#   hiyuki-2      (channel ID via env: ${CHANNEL_HIYUKI_2})
+#   hiyuki-3      (channel ID via env: ${CHANNEL_HIYUKI_3})
+#   hiyuki-4      (channel ID via env: ${CHANNEL_HIYUKI_4})
+#   hiyuki-5      (channel ID via env: ${CHANNEL_HIYUKI_5})
+#   hiyuki-6      (channel ID via env: ${CHANNEL_HIYUKI_6})
+#   hiyuki-7      (channel ID via env: ${CHANNEL_HIYUKI_7})
+#   hiyuki-8      (channel ID via env: ${CHANNEL_HIYUKI_8})
+#   hiyuki-9      (channel ID via env: ${CHANNEL_HIYUKI_9})
+#   hiyuki-10     (channel ID via env: ${CHANNEL_HIYUKI_10})
+# ---------------------------------------------------------------------------
+discord:
+  token: ${DISCORD_BOT_TOKEN}
+  guild_id: ${GUILD_ID}
+  require_mention: false
+  allowed_users:
+    - "1146639950654214264"
+  channels:
+    play: "1527072435390910617"
+    hiyuki-1: ${CHANNEL_HIYUKI_1}
+    hiyuki-2: ${CHANNEL_HIYUKI_2}
+    hiyuki-3: ${CHANNEL_HIYUKI_3}
+    hiyuki-4: ${CHANNEL_HIYUKI_4}
+    hiyuki-5: ${CHANNEL_HIYUKI_5}
+    hiyuki-6: ${CHANNEL_HIYUKI_6}
+    hiyuki-7: ${CHANNEL_HIYUKI_7}
+    hiyuki-8: ${CHANNEL_HIYUKI_8}
+    hiyuki-9: ${CHANNEL_HIYUKI_9}
+    hiyuki-10: ${CHANNEL_HIYUKI_10}
+  history_backfill: true
+  text_batch_delay: 0.6
+  split_delay: 0.1
+
+# ---------------------------------------------------------------------------
+# MCP servers — all 36 enabled (decision D-47). Declared in deployment phase F3.
+# ---------------------------------------------------------------------------

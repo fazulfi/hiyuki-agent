@@ -1,0 +1,33 @@
+# hiyuki-gateway.service
+#
+# Hiyuki — single-agent vanilla Hermes gateway (Discord, natural language only).
+#
+# Locked facts (see docs/decisions.md):
+#   D-58  — unit renamed to hiyuki-gateway.service (clean of any wwma trace)
+#   D-59  — no systemd hardening directives (plain unit, intentionally)
+#   D-149 — base install path /opt/hiyuki
+#   D-150 — uv venv OUTSIDE the hermes source tree (/opt/hiyuki/.venv)
+#   D-151 — entrypoint is `hermes gateway start` (single gateway process)
+#   D-30  — HERMES_HOME=/home/gamesim/.hermes-hiyuki
+#   D-61  — observability via journald only (no Prometheus/Grafana)
+#
+# stdout/stderr are captured by journald by default; no extra logging config.
+
+[Unit]
+Description=Hiyuki Hermes Gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=gamesim
+WorkingDirectory=/opt/hiyuki
+Environment=HERMES_HOME=/home/gamesim/.hermes-hiyuki
+ExecStart=/opt/hiyuki/.venv/bin/hermes gateway start
+Restart=on-failure
+RestartSec=5
+# No hardening directives (NoNewPrivileges, ProtectSystem, ProtectHome,
+# PrivateTmp, DevicePolicy) — deliberately omitted per D-59.
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,30 @@
+# Dependabot configuration for hiyuki-agent.
+# The Hermes runtime itself is a pinned git dependency managed in its own
+# checkout (decision D-86); this covers the tooling ecosystem of this repo.
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    versioning-strategy: "increase-if-necessary"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "ci"
+      include: "scope"

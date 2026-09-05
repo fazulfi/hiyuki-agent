@@ -1,0 +1,37 @@
+# ---------------------------------------------------------------------------
+# Hygiene only. hiyuki-agent is intentionally NOT containerized (decision D-82).
+# This file exists so that any future throwaway image build stays minimal and
+# never leaks secrets or runtime state. No Dockerfile is shipped.
+# ---------------------------------------------------------------------------
+
+# Deny everything by default, then re-include only the build-relevant paths.
+*
+
+# Repo assets that a hypothetical build context would need.
+!config/
+!deploy/
+!plugins/
+!README.md
+!pyproject.toml
+!LICENSE
+
+# Explicitly exclude regardless of the negations above.
+.git/
+.gitignore
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.venv/
+**/venv/
+**/node_modules/
+**/.env
+**/.env.*
+**/*.sops
+**/*.enc
+**/state.db
+**/*.db
+**/*.db-wal
+**/*.db-shm
+**/.DS_Store
