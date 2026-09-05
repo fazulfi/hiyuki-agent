@@ -5,7 +5,7 @@
 # inside the checkout is at risk of being removed by the runtime).
 
 # Pinned upstream reference. The exact commit SHA is fixed during phase F6.
-HERMES_REF  ?= v0.21.0
+HERMES_REF  ?= v2026.8.31
 HERMES_DIR  ?= ../hermes-agent
 VENV        ?= .venv
 PY          := $(VENV)/bin/python

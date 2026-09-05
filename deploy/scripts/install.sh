@@ -27,9 +27,9 @@ SERVICE_NAME="hiyuki-gateway.service"
 SYSTEMD_UNIT="/etc/systemd/system/${SERVICE_NAME}"
 
 HERMES_REPO="https://github.com/NousResearch/hermes-agent"
-# Pinned ref (D-29). ~0.21.0; extras messaging+mcp. Override with HERMES_REF
+# Pinned ref (D-29). ~0.21.0 (= tag v2026.8.31); extras messaging+mcp. Override with HERMES_REF
 # to pin a different tag or an exact commit hash for reproducibility.
-HERMES_REF="${HERMES_REF:-v0.21.0}"
+HERMES_REF="${HERMES_REF:-v2026.8.31}"
 
 # SOPS/age (D-65). The age key lives outside the repo; the sops ciphertext
 # lives at $CONFIG_DEST/.env.sops (or $HERMES_HOME/.env if you place it there).

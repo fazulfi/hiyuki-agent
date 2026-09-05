@@ -19,7 +19,7 @@ Satu agen AI bernama **Hiyuki**, berjalan di atas **Hermes upstream (vanilla, ta
 |---|---|
 | Nama produk | **Hiyuki** |
 | Bentuk | Single-agent Discord bot |
-| Operator tunggal | Faiz (Discord user ID `1146639950654214264`) |
+| Operator tunggal | Faiz (Discord user ID `<env:OPERATOR_USER_ID>`) |
 | Runtime | Vanilla NousResearch/hermes-agent (Python) |
 | Repo | `hiyuki-agent` (private, `github.com/fazulfi/hiyuki-agent`) |
 | License | Private (proprietary, tidak publik) |

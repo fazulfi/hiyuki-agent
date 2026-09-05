@@ -37,7 +37,7 @@ D-76 + S-04: bahkan 3 refusal permanen lama (CSAM/snuff/bestiality) dihapus — 
 
 ## 4. Satu-satunya batas yang tersisa (fitur custom, D-03)
 
-**Operator user ID allowlist**: hanya Discord user `1146639950654214264` (Faiz) yang bisa memakai Hiyuki.
+**Operator user ID allowlist**: hanya Discord user `<env:OPERATOR_USER_ID>` (Faiz) yang bisa memakai Hiyuki.
 
 Ini **bukan** batasan terhadap *apa yang bisa dilakukan* Hiyuki — ini batasan *siapa yang bisa memerintah*. Bersama Memory RAG, ini satu-satunya fitur custom yang dipertahankan.
 
