@@ -41,11 +41,11 @@ SQLite database. There is no Postgres, no Redis, no Alembic, and no container.
 ```mermaid
 flowchart LR
     subgraph Guild["Discord guild"]
-        Play["#play (1527072435390910617)"]
+        Play["#play (<env:CHANNEL_PLAY>)"]
         Multi["hiyuki-1 .. hiyuki-10"]
     end
 
-    Op["Faiz (operator)<br/>user 1146639950654214264"]
+    Op["Faiz (operator)<br/>user <env:OPERATOR_USER_ID>"]
 
     subgraph VPS["VPS gamesim — /opt/hiyuki"]
         GW["hermes gateway start<br/>(single process, systemd: hiyuki-gateway.service)"]
@@ -79,7 +79,7 @@ flowchart LR
 |---|---|
 | Vanilla upstream | No fork, no monkey-patching; Hermes is a pinned git dependency (~0.21.0, exact SHA pinned at install) |
 | Zero restrictions | No `command_allowlist`, no `denylist`, no `tool_policy`; all native toolsets and MCP servers enabled; approvals off |
-| Operator-only | The Discord allowlist contains exactly one user: `1146639950654214264` |
+| Operator-only | The Discord allowlist contains exactly one user: `<env:OPERATOR_USER_ID>` |
 | Single process | One gateway (`hermes gateway start`) serves the whole Discord surface; natural language only, no slash commands |
 | Minimal data plane | Native SQLite `state.db` for transcripts and sessions; remote RAG for long-term memory; nothing else |
 | Honest memory | Persona and operational contract live in `SOUL.md` and `OPS.md` under `HERMES_HOME`, loaded verbatim at startup |
@@ -152,7 +152,7 @@ never written inline; the profile references them as `${ENV_VAR}`.
 | `agent` | `approvals.mode` | `false` | Zero-approval operation |
 | `discord` | `token` | `${DISCORD_BOT_TOKEN}` | Single bot, reused |
 | `discord` | `require_mention` | `false` | Message Content intent required |
-| `discord` | `allowed_users` | `['1146639950654214264']` | Operator-only allowlist |
+| `discord` | `allowed_users` | `<env:OPERATOR_USER_ID>` | Operator-only allowlist |
 | `discord` | `channels` | 11 IDs | `#play` + `hiyuki-1..10`, NL only, no slash commands |
 | `discord` | `text_batch_delay` | `0.6` | Long-message batching |
 | `discord` | `split_delay` | `0.1` | Auto-split cadence |

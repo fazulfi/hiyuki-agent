@@ -35,7 +35,7 @@ agent:
 # Discord — natural language only. There are NO slash commands.
 # Operator-only surface: messages are accepted from the allowlist below.
 # The 11 channels are hardcoded here (decision D-89):
-#   #play         1527072435390910617
+#   #play         (channel ID via env: ${CHANNEL_PLAY})
 #   hiyuki-1      (channel ID via env: ${CHANNEL_HIYUKI_1})
 #   hiyuki-2      (channel ID via env: ${CHANNEL_HIYUKI_2})
 #   hiyuki-3      (channel ID via env: ${CHANNEL_HIYUKI_3})
@@ -52,9 +52,9 @@ discord:
   guild_id: ${GUILD_ID}
   require_mention: false
   allowed_users:
-    - "1146639950654214264"
+    - "${OPERATOR_USER_ID}"
   channels:
-    play: "1527072435390910617"
+    play: "${CHANNEL_PLAY}"
     hiyuki-1: ${CHANNEL_HIYUKI_1}
     hiyuki-2: ${CHANNEL_HIYUKI_2}
     hiyuki-3: ${CHANNEL_HIYUKI_3}

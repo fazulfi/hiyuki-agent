@@ -13,7 +13,7 @@ Dependensi dokumen: 07-config-inventory
 
 | Channel | ID (dari config VPS asli) | Keterangan |
 |---|---|---|
-| #play | 1527072435390910617 | channel utama |
+| #play | <env:CHANNEL_PLAY> | channel utama |
 | hiyuki-1 .. hiyuki-10 | (10 ID di config.yaml) | multi-chat pribadi |
 
 - D-22: `#play` + `hiyuki-1..10` (total 11 channel).
@@ -27,7 +27,7 @@ Dependensi dokumen: 07-config-inventory
 | Require mention | `false` | D-23 |
 | Permukaan | NL only, **tanpa slash command** | D-22 |
 | DM | **Skip** (bukan DM) | (design doc) |
-| Operator-only | `allowed_users: [1146639950654214264]` | D-03 |
+| Operator-only | `allowed_users: [<env:OPERATOR_USER_ID>]` | D-03 |
 
 ## 3. Perilaku channel (D-42..D-46)
 
@@ -46,7 +46,7 @@ Dependensi dokumen: 07-config-inventory
 
 ## 5. Allowlist operator (satu-satunya fitur custom tersisa)
 
-- Operator Discord user ID = `1146639950654214264` (Faiz).
+- Operator Discord user ID = `<env:OPERATOR_USER_ID>` (Faiz).
 - Ini satu-satunya gate yang dipertahankan (bersama Memory RAG) — lihat 08-autonomy-boundary.
 
 ## 6. Provisioning bot (G1)

@@ -195,7 +195,7 @@ Rebuild total Wuthering Waves Multi Agent (WWMA) dari nol menjadi agent **Hiyuki
 ### L. Rebuild execution clarifications (post-gap-review)
 
 - **D-146** — **Postgres DIBUANG TOTAL** dari stack Hiyuki. Tidak ada DB server sama sekali — session+memory pake SQLite `state.db` bawaan Hermes, RAG remote. Buang `DATABASE_URL`, Alembic, dan semua 34 tabel P12. SUPERSEDE D-87 (yang bilang "buat fresh minimal migration"). Stack data plane akhir: **SQLite (Hermes native) + remote RAG + tanpa Postgres + tanpa Redis** (D-88).
-- **D-147** — Guild + channel Discord = **reuse existing** (guild yang sama + 11 channel yang sudah ada, ID sudah tercatat: 1×`#play` 1527072435390910617 + 10×`hiyuki-1..10`). Tidak bikin guild/channel baru.
+- **D-147** — Guild + channel Discord = **reuse existing** (guild yang sama + 11 channel yang sudah ada, ID sudah tercatat: 1×`#play` <env:CHANNEL_PLAY> + 10×`hiyuki-1..10`). Tidak bikin guild/channel baru.
 - **D-148** — Aplikasi bot Discord = **reuse existing** + **TIDAK rotate token** (pakai token existing). Fokus operasional: pastikan **Message Content intent** ON (privileged, WAJIB untuk baca pesan NL tanpa mention, `require_mention:false`), dan bot sudah invite ke guild dengan scope yang tepat.
 - **D-149** — Base path instalasi VPS = **`/opt/hiyuki` bersih** (bukan `/opt/wwma`). Konsisten dengan rename unit `hiyuki-gateway.service` (D-58) dan hilangkan jejak `wwma` total.
 
@@ -245,7 +245,7 @@ Dibaca 2026-09-02. Baseline runtime saat ini (untuk referensi rewrite, BUKAN unt
 - `model`: base_url `http://127.0.0.1:20228/v1`, default `hermes`, context_length `1000000`, max_tokens `128000`, provider `markettabrak`. Key env `WWMA_HIYUKI_MARKETTABRAK_API_KEY`.
 - `agent`: max_iterations `15` (→ jadi 500), name `Hiyuki`, role `platform-peer`, new_instance_per_invocation true, `approvals.mode: false` (boolean), destructive_slash_confirm false.
 - **`command_allowlist` ADA** (daftar `*`, `[`, `]`, `"`, `sudo with privilege flag`, `script execution via -e/-c flag`) — ini gate command yang WAJIB dihapus di rebuild.
-- `discord`: require_mention false, 11 channel ID (1 × `#play` 1527072435390910617 + 10 × hiyuki-1..10), allowed_users `['1146639950654214264']` (= Faiz), auto_thread false, history_backfill true, group_sessions_per_user true, text_batch_delay 0.6, split_delay 0.1.
+- `discord`: require_mention false, 11 channel ID (1 × `#play` <env:CHANNEL_PLAY> + 10 × hiyuki-1..10), allowed_users `['<env:OPERATOR_USER_ID>']` (= Faiz), auto_thread false, history_backfill true, group_sessions_per_user true, text_batch_delay 0.6, split_delay 0.1.
 - `plugins.enabled`: `wwma-episodic-recorder`, `wwma-memory-rag`, `wwma-telemetry-recorder` (semua `allow_tool_override: false`). → Di rebuild, tinggal plugin RAG; episodic/telemetry recorder dibuang.
 - `memory`: provider `wwma-memory-rag`, memory_char_limit `100000`, user_char_limit `100000`, compression enabled (threshold 0.7, target 0.2, protect_last 20), session_search fts5, mirrors enabled.
 - `mcp_servers`: mayoritas sudah `enabled: true` (exa-search, financial-data, firecrawl, open-meteo, playwright, postgres-mcp, spreadsheet, sqlite, tavily, themissingmanual, wwma-memory, postgres-mcp-pro, github, filesystem, brave-search, edgar, fetch, pdf-mcp, sequential-thinking, time, weather-mcp, wwma-decomposition, wwma-handoff). Yang `disabled: false`: grafana, prometheus. → Di rebuild: hapus wwma-decomposition + wwma-handoff (P12 custom), hidupkan grafana/prometheus kalau mau (atau buang sesuai D-61).

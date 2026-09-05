@@ -77,7 +77,7 @@ Dokumen ini adalah peta navigasi untuk seluruh `greenfield-plan/spec/`. Ia menje
 
 | Gate | Nama | Lulus bila |
 |---|---|---|
-| G-IDENT | Identitas | Repo `hiyuki-agent` live, single agent Hiyuki, hanya Faiz (1146639950654214264) yang bisa pakai |
+| G-IDENT | Identitas | Repo `hiyuki-agent` live, single agent Hiyuki, hanya Faiz (<env:OPERATOR_USER_ID>) yang bisa pakai |
 | G-SOUL | Persona | SOUL.md rewrite verbatim (persona Hiyuki lama, referensi Suisui + backend stale dibersihkan) terpasang |
 | G-AUTO | Autonomy | Semua tool Hermes native + 36 MCP ON, approvals off, max_iterations 500, nol garis merah |
 | G-ARCH | Arsitektur | Vanilla Hermes (bukan 248 file app/) berjalan sebagai dependency git, tanpa monkey-patch |
